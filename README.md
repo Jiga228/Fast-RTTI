@@ -1,2 +1,2 @@
 # Fast-RTTI
-This library implements fast RTTI.
+This library implements fast RTTI for C++.
