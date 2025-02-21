@@ -4,7 +4,7 @@
 #define GENERATE_META(Class) \
 class Class; \
 template<> struct Meta <Class> { \
-static constexpr Classes TypeStr = Classes::##Class; \
+static constexpr Classes Type = Classes::##Class; \
 };
 
 // Predeclarate struct for meta information
@@ -13,4 +13,5 @@ template<class T> struct Meta;
 //  Enum type classes
 enum class Classes
 {
+    IRTTI
 };
