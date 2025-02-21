@@ -44,7 +44,7 @@ public:
         if (IsA<To>(InterfaceOfObject->type))
             return reinterpret_cast<To*>(object);
 
-        const size_t coutType = InterfaceOfObject->Tree.size;
+        const size_t coutType = InterfaceOfObject->Tree.size - 1;
         for (size_t i = 0; i < coutType; ++i)
         {
             if (InterfaceOfObject->Tree.Tree[i] == Meta<To>::Type)

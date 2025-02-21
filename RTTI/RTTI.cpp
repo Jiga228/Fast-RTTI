@@ -2,13 +2,16 @@
 
 void IRTTI::TreeArray::push_back(const Classes type)
 {
+    Tree[size - 1] = type;
+    
     size++;
     Classes* NewTree = new Classes[size];
 
     for (size_t i = 0; i < size - 1; ++i)
         NewTree[i] = Tree[i];
-
-    NewTree[size - 1] = type;
+    
+    delete[] Tree;
+    Tree = NewTree;
 }
 
 IRTTI::TreeArray::TreeArray()
@@ -20,7 +23,7 @@ IRTTI::TreeArray::TreeArray()
 void IRTTI::SetType(const Classes type)
 {
     this->type = type;
-    //Tree.push_back(type);
+    Tree.push_back(type);
 }
 
 IRTTI::IRTTI()
