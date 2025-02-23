@@ -1,29 +1,60 @@
 #include  "RTTI.h"
 
-void IRTTI::TreeArray::push_back(const Classes type)
+void IRTTI::FastContainer::push_back(const Classes newType)
 {
-    Tree[size - 1] = type;
-    
-    size++;
-    Classes* NewTree = new Classes[size];
+    if (0 == _size)
+    {
+        ++_size;
+        array = new Classes;
+        *array = newType;
+    }
+    else
+    {
+        ++_size;
+        Classes* NewArray = new Classes[_size];
 
-    for (size_t i = 0; i < size - 1; ++i)
-        NewTree[i] = Tree[i];
-    
-    delete[] Tree;
-    Tree = NewTree;
+        long long indexObject = _size - 1;
+        for (long long i = 0, j = 0; i < _size - 1; ++i, ++j)
+        {
+            if (newType < array[i] && indexObject == _size - 1)
+            {
+                indexObject = j;
+                ++j;
+            }
+
+            NewArray[j] = array[i];
+        }
+        NewArray[indexObject] = newType;
+
+        delete[] array;
+        array = NewArray;
+    }
 }
 
-IRTTI::TreeArray::TreeArray()
+bool IRTTI::FastContainer::find(const Classes& Type) const
 {
-    Tree = new Classes;
-    size = 1;
+    long long low = 0;
+    long long high = _size - 1;
+
+    while (low <= high)
+    {
+        long long mid = (low + high) / 2;
+        if (static_cast<int>(array[mid]) == static_cast<int>(Type))
+            return true;
+        
+        if (static_cast<int>(array[mid]) > static_cast<int>(Type))
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    return false;
 }
 
-void IRTTI::SetType(const Classes type)
+void IRTTI::SetType(const Classes Type)
 {
-    this->type = type;
-    Tree.push_back(type);
+    this->type = Type;
+    Tree.push_back(Type);
 }
 
 IRTTI::IRTTI()
@@ -31,7 +62,12 @@ IRTTI::IRTTI()
     SetType(Classes::IRTTI);
 }
 
-Classes IRTTI::RTTI_Kind() const
+Classes RTTI::GetType(const IRTTI* object)
 {
-    return type;
+    return object->type;
+}
+
+const char* RTTI::GetTypeStr(const IRTTI* object)
+{
+    return enum_to_string(object->type);
 }
