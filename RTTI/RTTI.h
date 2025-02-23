@@ -40,10 +40,6 @@ class RTTI final
         switch (type)
         {
         case Classes::IRTTI: return "IRTTI";
-        case Classes::TestA: return "TestA";
-        case Classes::TestB: return "TestB";
-        case Classes::TestC: return "TestC";
-        case Classes::TestD: return "TestD";
         default: return "Undefined";
         }
     }
