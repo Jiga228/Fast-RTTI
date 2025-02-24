@@ -33,16 +33,6 @@ class RTTI final
 {
     RTTI() = default;
 
-    // Convert enum to string
-    [[nodiscard]]
-    static const char* enum_to_string(const Classes type)
-    {
-        switch (type)
-        {
-        case Classes::IRTTI: return "IRTTI";
-        default: return "Undefined";
-        }
-    }
     
     // That method allow compare given type with real type object
     template<class Kind>
@@ -73,8 +63,4 @@ public:
 
     // That method return real type object in the form of enum value
     static Classes GetType(const IRTTI* object);
-
-    // That method return real type in the form of string
-    [[nodiscard]]
-    static const char* GetTypeStr(const IRTTI* object);
 };

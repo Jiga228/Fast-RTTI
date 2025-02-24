@@ -66,8 +66,3 @@ Classes RTTI::GetType(const IRTTI* object)
 {
     return object->type;
 }
-
-const char* RTTI::GetTypeStr(const IRTTI* object)
-{
-    return enum_to_string(object->type);
-}
