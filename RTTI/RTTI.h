@@ -15,6 +15,8 @@ class IRTTI
         long long constexpr size() const { return _size; }
         void push_back(const Classes object);
         bool find(const Classes& Type) const;
+
+        ~FastContainer();
     };
     FastContainer Tree;
     Classes type;
@@ -33,18 +35,11 @@ class RTTI final
 {
     RTTI() = default;
 
-    
-    // That method allow compare given type with real type object
-    template<class Kind>
-    static bool IsA(const Classes type)
-    {
-        return Meta<Kind>::Type == type;
-    }
 public:
     template<class Kind>
     static bool IsA(const IRTTI* object)
     {
-        return IsA<Kind>(object->type);
+        return Meta<Kind>::Type == object->type;
     }
 
     // That method realized dynamic_cast
@@ -52,7 +47,7 @@ public:
     static To* dyn_cast(From* object)
     {
         IRTTI* InterfaceOfObject = static_cast<IRTTI*>(object);
-        if (IsA<To>(InterfaceOfObject->type))
+        if (IsA<To>(object))
             return reinterpret_cast<To*>(object);
 
         if (InterfaceOfObject->Tree.find(Meta<To>::Type))

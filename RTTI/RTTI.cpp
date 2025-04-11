@@ -51,6 +51,12 @@ bool IRTTI::FastContainer::find(const Classes& Type) const
     return false;
 }
 
+IRTTI::FastContainer::~FastContainer()
+{
+    _size = 0;
+    delete[] array;
+}
+
 void IRTTI::SetType(const Classes Type)
 {
     this->type = Type;
