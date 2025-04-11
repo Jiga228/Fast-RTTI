@@ -48,10 +48,10 @@ public:
     {
         IRTTI* InterfaceOfObject = static_cast<IRTTI*>(object);
         if (IsA<To>(object))
-            return reinterpret_cast<To*>(object);
+            return static_cast<To*>(object);
 
         if (InterfaceOfObject->Tree.find(Meta<To>::Type))
-            return reinterpret_cast<To*>(object);
+            return static_cast<To*>(object);
         
         return nullptr;
     }
