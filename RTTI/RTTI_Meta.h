@@ -13,5 +13,5 @@ template<class T> struct Meta;
 // Enum type classes
 enum class Classes
 {
-    IRTTI
+    IRTTI, ClassA, ClassB, ClassC, ClassD, ClassE
 };
