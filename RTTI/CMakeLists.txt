@@ -1,6 +1,6 @@
 file(GLOB SRC "*.cpp" "*.h")
 
-add_library(${CMAKE_PROJECT_NAME} STATIC ${SRC})
+add_library(FastRTTI STATIC ${SRC})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     message(STATUS "Release mode: enabling optimizations")
@@ -10,17 +10,17 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
         # /GL - link-time optimization
         # /DNDEBUG - отключить assert()
         # /GR- - отключить RTTI
-        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /O2 /GL /DNDEBUG /GR-)
-        target_link_options(${CMAKE_PROJECT_NAME} PRIVATE /LTCG)
+        target_compile_options(FastRTTI PRIVATE /O2 /GL /DNDEBUG /GR-)
+        target_link_options(FastRTTI PRIVATE /LTCG)
     else()
         # GCC / Clang
-        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
+        target_compile_options(FastRTTI PRIVATE
             -O3
             -march=native
             -flto
             -fno-rtti
             -DNDEBUG
         )
-        target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -flto)
+        target_link_options(FastRTTI PRIVATE -flto)
     endif()
 endif()
